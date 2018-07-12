@@ -1,0 +1,8 @@
+<import src='../stars/stars-template.wxml' />
+<template name='movieTemplate'>
+  <view>
+    <image src='/images/post/xiaolong.jpg'></image>
+    <text>张小龙</text>
+    <template is='starsTemplate' />
+  </view>
+</template>
