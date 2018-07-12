@@ -1,0 +1,7 @@
+<view class='container'>
+  <image class="user-avatar" src='/images/avatar/1.png'></image>
+  <text class='user-name'><text style='color: red'>你好</text>，七月！</text>
+  <view class='moto-container'>
+    <text class='moto' bindtap='viewPosts'>开启小程序之路</text>
+  </view>
+</view>

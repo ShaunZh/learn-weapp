@@ -1,0 +1,78 @@
+.container {
+  position: relative;
+}
+
+.head-image {
+  width: 100%;
+}
+
+.audio-image {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: 50%;
+  top: 20px;
+}
+
+.post-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10rpx 15rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.post-info .avatar {
+  width: 68rpx;
+  height: 68rpx;
+  margin-left: 10rpx;
+}
+
+.post-info > text {
+  margin-left: 10rpx;
+}
+
+.title {
+  margin: 20rpx 0 0 25rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333
+}
+
+.tool {
+  margin: 60rpx 25rpx;
+  position: relative;
+}
+.tool .circle-image {
+  position: absolute;
+  right: 0;
+  top: -30rpx;
+  z-index: 10;
+
+}
+.tool .circle-image image {
+  width: 68rpx;
+  height: 68rpx;
+  margin-left: 20rpx;
+}
+
+.tool .horizon {
+  border-top: 1px solid #999;
+  width: 78%;
+}
+
+.details-container {
+  padding: 20rpx;
+}
+.details {
+  word-wrap: break-word;
+  letter-spacing: 2rpx;
+  line-height: 40rpx;
+  text-align: justify;
+  font-size: 28rpx;
+  color: #666;
+
+}
+
+ 

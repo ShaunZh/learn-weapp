@@ -1,0 +1,41 @@
+<view class='container'>
+   <image class='head-image' src='{{isPlayingMusic?postData.music.covertImg:postData.headImgSrc}}'></image>
+  <image catchtap='onMusicTap' class='audio-image' src='{{isPlayingMusic?"/images/music/music-start.png":"/images/music/music-stop.png"}}'></image>
+  <view class='post-info'>
+    <image class='avatar' src='{{postData.avatar}}'></image>
+    <text class='author'>{{postData.author}}</text>
+    <text class='const-text'>发表于</text>
+    <text class='date'>{{postData.dateTime}}</text>
+  </view>
+  <text class='title'>{{postData.title}}</text>
+  <view class='tool'>
+    <view class='circle-image'>
+      <image catchtap='onCollectedTap' wx:if='{{postCollected}}' src='/images/icon/collection.png'></image>
+      <image catchtap='onCollectedTap' wx:else src='/images/icon/collection-anti.png'></image>
+      <image catchtap='onShareTap' class='show-image' src='/images/icon/share.png'></image>
+    </view>
+    <view class='horizon'></view>
+  </view>
+  <view class='details-container'>
+    <text class='details'>{{postData.details}}</text> 
+  </view>
+  <!-- <image class='head-image' src='/images/post/crab.png'></image>
+  <image class='audio-image' src='/images/music/music-start.png'></image>
+  <view class='post-info'>
+    <image class='avatar' src='/images/avatar/1.png'></image>
+    <text class='author'>放风筝的小小马</text>
+    <text class='const-text'>发表于</text>
+    <text class='date'>2018-10-10</text>
+  </view>
+  <text class='title'>约翰克里斯多夫</text>
+  <view class='tool'>
+    <view class='circle-image'>
+      <image src='/images/icon/collection.png'></image>
+      <image class='show-image' src='/images/icon/share.png'></image>
+    </view>
+    <view class='horizon'></view>
+  </view>
+  <view class='details-container'>
+  <text class='details'>Vue.js是一个用于创建用户界面的开源JavaScript框架，也是一个创建单页面应用的Web应用框架。 2016年一项针对JavaScript的调查表明，Vue有着89%的开发者满意度。 在GitHub上，该项目平均每天能收获95颗星，为Github有史以来星标数第10多的项目</text>
+  </view> -->
+</view>

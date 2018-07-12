@@ -1,0 +1,19 @@
+<import src='./post-item/post-item-template.wxml' />
+<view>
+  <swiper duration='500' autoplay='true' interval='5000' circular='true'>
+    <swiper-item>
+      <image src='/images/post/bl.png'></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='/images/post/cat.png' ></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='/images/post/vr.png'></image>
+    </swiper-item>
+  </swiper>
+  <block wx:for="{{postsList}}" wx:key="*this">
+    <view catchtap='onPostDetails' data-postId='{{item.postId}}' data-postName='{{item.title}}'>
+      <template is='postItem' data='{{...item}}' />
+    </view>
+  </block>
+</view>
