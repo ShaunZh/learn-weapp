@@ -1,10 +1,24 @@
 {
   "pages": [
-    "pages/welcome/welcome",
     "pages/posts/posts",
-    "pages/posts/post-details/post-details"
+    "pages/welcome/welcome",
+    "pages/posts/post-details/post-details",
+    "pages/movies/movies"
   ],
   "window": {
     "navigationBarBackgroundColor": "#b3d4db"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/movies/movies",
+        "text": "首页",
+        "borderStyle": "white"
+      },
+      {
+        "pagePath": "pages/posts/posts",
+        "text": "日志"
+      }
+    ]
   }
 }
