@@ -1,12 +1,12 @@
 <template name='starsTemplate'>
-  <view>
-    <view class='stars-container'>
+  <view class='stars-container'>
+    <view class='stars-wrap'>
       <image src='/images/icon/star.png'></image>
       <image src='/images/icon/star.png'></image>
       <image src='/images/icon/star.png'></image>
       <image src='/images/icon/star.png'></image>
       <image src='/images/icon/star.png'></image>
     </view>
-    <text>5.0</text>
+    <text class='text'>5.0</text>
   </view>
 </template>
