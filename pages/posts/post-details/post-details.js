@@ -1,4 +1,4 @@
-var postsData = require('../../../images/data/postsList.js')
+var postsData = require('../../../data/postsList.js')
 var app = getApp();
 Page({
 

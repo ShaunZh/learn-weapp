@@ -8,7 +8,7 @@ Page({
   },
   viewPosts: function() {
     wx.navigateTo({
-      url: '/pages/posts/posts',
+      url: '../posts/posts',
     });
     console.log('bindtap')
   },
