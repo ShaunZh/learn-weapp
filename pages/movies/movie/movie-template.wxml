@@ -1,8 +1,8 @@
 <import src='../stars/stars-template.wxml' />
 <template name='movieTemplate'>
   <view class='movie-container'>
-    <image class='movie-image' src='/images/yao.png'></image>
-    <text class='movie-title'>张小龙</text>
-    <template is='starsTemplate' />
+    <image class='movie-image' src='{{movie.image}}'></image>
+    <text class='movie-title'>{{movie.title}}</text>
+    <template is='starsTemplate' data="{{starsArray: movie.rating.starsArray, average: movie.rating.average}}"/>
   </view>
 </template>
