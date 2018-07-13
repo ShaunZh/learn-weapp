@@ -8,6 +8,27 @@ function convertMovieStarsToArray(stars) {
   return arr;
 }
 
+// 获取电影列表
+function http(url, successCallback, errorCallback){
+  wx.request({
+    url,
+    method: 'GET',
+    data: {},
+    header: {
+      // 这里必须填写为 json， 不能填写 application/json
+      "Content-Type": "json"
+    },
+    success: (res) => {
+      successCallback(res.data);
+      
+    },
+    fail: (error) => {
+      errorCallback(error);
+    }
+  })
+}
+
 module.exports = {
-  convertMovieStarsToArray
+  convertMovieStarsToArray,
+  http
 }
