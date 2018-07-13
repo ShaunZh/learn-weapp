@@ -59,10 +59,6 @@ Page({
         };
         this.setData(temp);
       },
-      fail: function (res) {
-        console.log(res)
-      }
-
     })
   }
 })
