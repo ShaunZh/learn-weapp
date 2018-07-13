@@ -1,4 +1,4 @@
-var app = getApp();
+const app = getApp();
 const utils = require('../../utils/utils.js');
 
 Page({
@@ -23,6 +23,7 @@ Page({
     // top250
     const top250Url = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/top250?start=0&count=3`;
     
+    // 发送请求从豆瓣获取数据
     utils.http(inTheatersUrl, (moviesList) => {
       this.processDoubanData(moviesList, 'inTheatersMovies', '正在热映')
     });
@@ -33,7 +34,7 @@ Page({
       this.processDoubanData(moviesList, 'top250Movies', '豆瓣Top250')
     });
   },
-
+  // 处理从豆瓣获取的数据
   processDoubanData: function (moviesList, movieCategory, categoryName) {
     const temp = {};
     const arr = moviesList.subjects.map((item) => {
@@ -55,6 +56,14 @@ Page({
     };
     this.setData(temp);
   },
+  // 获取数据错误处理
+  getMoviesListDataErrorDeal: function (error) {
+    wx.showToast({
+      title: `获取数据错误: ${error.msg}`,
+      duration: 1000,
+    })
+  },
+  // 点击更多事件处理函数
   onMoveMovieTap: function(event) {
     const category = event.currentTarget.dataset.categorytitle;
     console.log(event)
