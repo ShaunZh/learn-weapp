@@ -1,5 +1,5 @@
 <import src='../movie-grid/movie-grid.wxml' />
 
-<view class='more-movie-container'>
+<scroll-view class='more-movie-container' scroll-y='true' bindscrolltolower='onLoaderMoreMovies'>
   <template is='movieGrid' data='{{moviesListData}}' />
-</view>
+</scroll-view>

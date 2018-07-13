@@ -9,6 +9,7 @@ Page({
   data: {
     navigateTitle: '',
     moviesListData: [],
+    requestUrl: '',
   },
 
   /**
@@ -16,22 +17,22 @@ Page({
    */
   onLoad: function (options) {
     const category = options.category;
-    let dataUrl = '';
     this.data.navigateTitle = category;
     switch (category) {
       case '正在热映': 
-        dataUrl = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/in_theaters`;
+        this.data.requestUrl = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/in_theaters`;
       break;
       case '即将上映':
-        dataUrl = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/coming_soon`; 
+        this.data.requestUrl = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/coming_soon`; 
       break;
       case '豆瓣Top250': 
         // top250
-        dataUrl = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/top250`;
+        this.data.requestUrl = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/top250`;
       break;
       default: break;
     }
-    dataUrl.length && utils.http(dataUrl, this.processDoubanData, this.getMoviesListDataErrorDeal);
+
+    this.data.requestUrl.length && utils.http(this.data.requestUrl, this.processDoubanData, this.getMoviesListDataErrorDeal);
   },
   // 处理从豆瓣获取的数据
   processDoubanData: function (moviesList) {
@@ -48,8 +49,9 @@ Page({
         image: item.images.large // 海报
       };
     });
+    
     this.setData({
-      moviesListData: arr,
+      moviesListData: this.data.moviesListData.concat(arr),
     });
   },
   // 获取数据错误处理
@@ -58,6 +60,10 @@ Page({
       title: `获取数据错误: ${error.msg}`,
       duration: 1000,
     })
+  },
+  // 加载更多数据
+  onLoaderMoreMovies: function(event) {
+    this.data.requestUrl.length && utils.http(`${this.data.requestUrl}?start=${this.data.moviesListData.length}&count=20`, this.processDoubanData, this.getMoviesListDataErrorDeal);
   },
   onReady: function () {
     wx.setNavigationBarTitle({

@@ -10,6 +10,10 @@ function convertMovieStarsToArray(stars) {
 
 // 获取电影列表
 function http(url, successCallback, errorCallback){
+  wx.showLoading({
+    title: '加载中',
+    mask: true
+  })
   wx.request({
     url,
     method: 'GET',
@@ -20,10 +24,12 @@ function http(url, successCallback, errorCallback){
     },
     success: (res) => {
       successCallback(res.data);
-      
     },
     fail: (error) => {
       errorCallback(error);
+    },
+    complete: () => {
+      wx.hideLoading();
     }
   })
 }
