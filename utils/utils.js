@@ -23,9 +23,13 @@ function http(url, successCallback, errorCallback){
       "Content-Type": "json"
     },
     success: (res) => {
+      console.log('成功')
       successCallback(res.data);
+
     },
     fail: (error) => {
+      console.log('shibai ')
+
       errorCallback(error);
     },
     complete: () => {

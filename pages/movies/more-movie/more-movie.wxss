@@ -5,3 +5,18 @@
 .more-movie-container {
   height: 1330rpx;
 }
+
+.bottom-tip {
+  font-size: 24rpx;
+  margin: 10rpx auto;
+  color: #999;
+}
+
+.more-movie-container::after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  overflow: hidden;
+  visibility: hidden;
+}

@@ -2,7 +2,6 @@
 const app = getApp();
 const utils = require('../../../utils/utils.js');
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -10,6 +9,8 @@ Page({
     navigateTitle: '',
     moviesListData: [],
     requestUrl: '',
+    totalMovies: 1,
+    isShowBottomTip: false, // 是否加载完数据了
   },
 
   /**
@@ -31,8 +32,9 @@ Page({
       break;
       default: break;
     }
-
-    this.data.requestUrl.length && utils.http(this.data.requestUrl, this.processDoubanData, this.getMoviesListDataErrorDeal);
+    this.data.requestUrl.length && 
+    this.data.totalMovies > this.data.moviesListData.length
+    && utils.http(this.data.requestUrl, this.processDoubanData, this.getMoviesListDataErrorDeal);
   },
   // 处理从豆瓣获取的数据
   processDoubanData: function (moviesList) {
@@ -49,10 +51,16 @@ Page({
         image: item.images.large // 海报
       };
     });
-    
+    const totalMoviesList = this.data.moviesListData.concat(arr);
     this.setData({
-      moviesListData: this.data.moviesListData.concat(arr),
+      moviesListData: totalMoviesList,
+      totalMovies: moviesList.total,
     });
+    if (moviesList.total <= totalMoviesList.length) {
+      this.setData({
+        isShowBottomTip: true,
+      });
+    }
   },
   // 获取数据错误处理
   getMoviesListDataErrorDeal: function (error) {
@@ -63,7 +71,11 @@ Page({
   },
   // 加载更多数据
   onLoaderMoreMovies: function(event) {
-    this.data.requestUrl.length && utils.http(`${this.data.requestUrl}?start=${this.data.moviesListData.length}&count=20`, this.processDoubanData, this.getMoviesListDataErrorDeal);
+    this.data.requestUrl.length && 
+    this.data.totalMovies > this.data.moviesListData.length && 
+    utils.http(`${this.data.requestUrl}?start=${this.data.moviesListData.length}&count=20`, this.processDoubanData, this.getMoviesListDataErrorDeal);
+
+    
   },
   onReady: function () {
     wx.setNavigationBarTitle({

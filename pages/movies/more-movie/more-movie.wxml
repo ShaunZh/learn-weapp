@@ -2,4 +2,7 @@
 
 <scroll-view class='more-movie-container' scroll-y='true' bindscrolltolower='onLoaderMoreMovies'>
   <template is='movieGrid' data='{{moviesListData}}' />
+  <view class='bottom-tip' wx:if='{{isShowBottomTip}}'>
+    没有数据了!
+  </view>
 </scroll-view>
