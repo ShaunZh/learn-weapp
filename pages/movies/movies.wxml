@@ -1,6 +1,19 @@
 <import src='movie-list/movie-list-template.wxml' />
+<import src='movie-grid/movie-grid-template.wxml' />
+
 <view class='movies-container'>
-  <template is='movieListTemplate' data="{{...inTheatersMovies}}"/>
-  <template is='movieListTemplate' data="{{...comingSoonMovies}}"/>
-  <template is='movieListTemplate' data="{{...top250Movies}}"/>
+  <view class='search-container'>
+    <icon class='search-icon' type='search' size='16'></icon>
+    <input class='search-input' type='text' confirm-type='search' placeholder='我不是药神、邪不压正' placeholder-class='search-placeholder' value='{{searchInputInit}}' catchfocus='onBindInputFocus' catchblur='onBindInputBlur' catchconfirm='onBindConfirm'></input>
+    <image class='close-search' wx:if='{{isDispSearchMovies}}' src='/images/icon/xx.png' catchtap='onTapClossSearch'></image>
+  </view>
+  <view class='index-movies' wx:if='{{isDispIndexMovies}}'>
+    <template is='movieListTemplate' data="{{...inTheatersMovies}}" />
+    <template is='movieListTemplate' data="{{...comingSoonMovies}}" />
+    <template is='movieListTemplate' data="{{...top250Movies}}" />
+  </view>
+  <view class='search-movies' wx:if='{{isDispSearchMovies}}'>
+    
+    <template is='movieGridTemplate' data='{{moviesListData: searchResult.movies}}' />
+  </view>
 </view>

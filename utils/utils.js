@@ -19,7 +19,6 @@ function http(url, successCallback, errorCallback){
       "Content-Type": "json"
     },
     success: (res) => {
-      console.log('成功')
       successCallback(res.data);
 
     },

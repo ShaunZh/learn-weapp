@@ -9,7 +9,11 @@ Page({
   data: {
     inTheatersMovies: {},
     comingSoonMovies: {},
-    top250Movies: {}
+    top250Movies: {},
+    isDispIndexMovies: true,  // 是否显示首页电影
+    isDispSearchMovies: false,  // 是否显示搜索电影
+    searchResult: {}, // 搜索的电影
+    searchInputInit: '', // 搜索输入框的初始化文字
   },
 
   /**
@@ -70,5 +74,45 @@ Page({
     wx.navigateTo({
       url: `more-movie/more-movie?category=${category}`,
     })
+  },
+  // 点击搜索栏触发的事件处理函数
+  onBindInputFocus: function(event) {
+    console.log('focus')
+
+    this.setData({
+      isDispSearchMovies: true,
+      isDispIndexMovies: false,
+    })
+  },
+  // 点击搜索栏之外的地方触发的事件处理函数
+  onBindInputBlur: function(event) {
+    console.log('blur')
+    // this.setData({
+    //   isDispSearchMovies: false,
+    //   isDispIndexMovies: true,
+    // });
+    // this.data.searchResult = {};
+  },
+  // 点击关闭搜索触发的事件处理函数
+  onTapClossSearch:function(event) {
+    console.log('close')
+    this.setData({
+      isDispSearchMovies: false,
+      isDispIndexMovies: true,
+      searchResult: {},
+      searchInputInit: ''
+    });
+  },
+  // 点击确认搜索触发的事件处理函数
+  onBindConfirm: function (event) {
+    const searchKeyword = event.detail.value;
+    const searchUrl = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/search?q=${searchKeyword}`;
+    utils.http(searchUrl, (moviesList) => {
+      this.processDoubanData(moviesList, 'searchResult', '');
+      this.setData({
+        isDispSearchMovies: true,
+        isDispIndexMovies: false,
+      })
+    });
   }
 })
