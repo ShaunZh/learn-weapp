@@ -51,6 +51,7 @@ Page({
         isPlayingMusic: true
       })
       app.globalData.g_isPlayingMusic = true;
+      app.globalData.g_currentMusicPostId = this.postData.postId;
     }).bind(this));
 
     wx.onBackgroundAudioPause((function () {
@@ -58,7 +59,17 @@ Page({
         isPlayingMusic: false
       })
       app.globalData.g_isPlayingMusic = false;
-    }).bind(this))
+      app.globalData.g_currentMusicPostId = null;
+    }).bind(this));
+    // 
+    wx.onBackgroundAudioPause((function () {
+      this.setData({
+        isPlayingMusic: false
+      })
+      app.globalData.g_isPlayingMusic = false;
+      app.globalData.g_currentMusicPostId = null;
+    }).bind(this));
+
   },
   // 收藏文章监控程序
   onCollectedTap(event) {

@@ -114,5 +114,12 @@ Page({
         isDispIndexMovies: false,
       })
     });
+  },
+  // 点击获取文章详情触发的事件处理函数
+  onCatchTapMovieDetail: function (event) {
+    const movieId = event.currentTarget.dataset.movieId;
+    wx.navigateTo({
+      url: `movie-detail/movie-detail?movieId=${movieId}`,
+    })
   }
 })
