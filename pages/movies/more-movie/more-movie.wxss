@@ -2,14 +2,11 @@
 
 @import '../movie-grid/movie-grid.wxss';
 
-.more-movie-container {
-  height: 1330rpx;
-}
-
 .bottom-tip {
   font-size: 24rpx;
-  margin: 10rpx auto;
+  text-align: center;
   color: #999;
+  margin: 10rpx 0 20rpx;
 }
 
 .more-movie-container::after {

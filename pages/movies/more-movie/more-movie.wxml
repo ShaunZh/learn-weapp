@@ -1,8 +1,8 @@
 <import src='../movie-grid/movie-grid.wxml' />
 
-<scroll-view class='more-movie-container' scroll-y='true' bindscrolltolower='onLoaderMoreMovies'>
+<view class='more-movie-container'>
   <template is='movieGrid' data='{{moviesListData}}' />
   <view class='bottom-tip' wx:if='{{isShowBottomTip}}'>
     没有数据了!
   </view>
-</scroll-view>
+</view>

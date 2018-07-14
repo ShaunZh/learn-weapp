@@ -35,6 +35,7 @@ Page({
     this.data.requestUrl.length && 
     this.data.totalMovies > this.data.moviesListData.length
     && utils.http(this.data.requestUrl, this.processDoubanData, this.getMoviesListDataErrorDeal);
+    
   },
   // 处理从豆瓣获取的数据
   processDoubanData: function (moviesList) {
@@ -61,6 +62,8 @@ Page({
         isShowBottomTip: true,
       });
     }
+    wx.hideNavigationBarLoading();
+    wx.stopPullDownRefresh();
   },
   // 获取数据错误处理
   getMoviesListDataErrorDeal: function (error) {
@@ -69,14 +72,20 @@ Page({
       duration: 1000,
     })
   },
-  // 加载更多数据
-  onLoaderMoreMovies: function(event) {
-    this.data.requestUrl.length && 
-    this.data.totalMovies > this.data.moviesListData.length && 
-    utils.http(`${this.data.requestUrl}?start=${this.data.moviesListData.length}&count=20`, this.processDoubanData, this.getMoviesListDataErrorDeal);
-
-    
+  // 上滑加载更多数据
+  onReachBottom: function(event) {
+    if (this.data.requestUrl.length && this.data.totalMovies > this.data.moviesListData.length) {
+      wx.showNavigationBarLoading();
+      utils.http(`${this.data.requestUrl}?start=${this.data.moviesListData.length}&count=20`, this.processDoubanData, this.getMoviesListDataErrorDeal);
+    }
   },
+  // 下拉刷新
+  onPullDownRefresh: function(event) {
+    this.data.moviesListData = [];
+    utils.http(`${this.data.requestUrl}?start=0&count=20`, this.processDoubanData, this.getMoviesListDataErrorDeal);
+    wx.showNavigationBarLoading();
+  },
+
   onReady: function () {
     wx.setNavigationBarTitle({
       title: this.data.navigateTitle
