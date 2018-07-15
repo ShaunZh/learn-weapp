@@ -35,3 +35,11 @@
   width: 24rpx;
   height: 24rpx;
 }
+
+.no-find-data-tip{
+  padding-top: 20rpx;
+  background-color: #fff;
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+}

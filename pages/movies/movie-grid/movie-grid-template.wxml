@@ -2,7 +2,7 @@
 <template name='movieGridTemplate'>
   <view class='movie-grid-container'>
     <block wx:for='{{moviesListData}}' wx:for-item='movie' wx:key='movie.id'>
-      <view class='movie-item'>
+      <view class='movie-item'> 
         <template is='movieTemplate' data='{{movie}}' />
       </view>
     </block>

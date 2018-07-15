@@ -13,7 +13,13 @@
     <template is='movieListTemplate' data="{{...top250Movies}}" />
   </view>
   <view class='search-movies' wx:if='{{isDispSearchMovies}}'>
-    
     <template is='movieGridTemplate' data='{{moviesListData: searchResult.movies}}' />
   </view>
+  <view class='no-data-tip' wx:if='{{isMoviesLoadFinished}}'>
+    <text>数据全部加载完毕</text>
+  </view>
+  <view class='no-find-data-tip' wx:if='{{isNoFindMovies}}'>
+  <text>没有找到您要的数据!</text>
+  </view>
+
 </view>

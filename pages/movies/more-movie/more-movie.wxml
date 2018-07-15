@@ -1,6 +1,6 @@
 <import src='../movie-grid/movie-grid-template.wxml' />
 
-<view class='more-movie-container'>
+<view class='more-movie-container'> 
   <template is='movieGridTemplate' data='{{moviesListData}}' />
   <view class='bottom-tip' wx:if='{{isShowBottomTip}}'>
     没有数据了!

@@ -21,12 +21,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    console.log('onready') 
   },
   onPostDetails: function (event) {
-    console.log(event)
     var postId = event.currentTarget.dataset.postid
-    console.log('onPostTap')
     wx.navigateTo({
       url: './post-details/post-details?id=' + postId,
       success: function(res) {},

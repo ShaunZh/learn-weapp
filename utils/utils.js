@@ -4,7 +4,6 @@ function convertMovieStarsToArray(stars) {
   for (let i = 0; i < 5; i++) {
     arr.push(i<starNum);
   }
-  console.log(arr);
   return arr;
 }
 
@@ -23,8 +22,6 @@ function http(url, successCallback, errorCallback){
 
     },
     fail: (error) => {
-      console.log('shibai ')
-
       errorCallback(error);
     },
     complete: () => {

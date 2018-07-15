@@ -39,7 +39,6 @@ Page({
   },
   // 处理从豆瓣获取的数据
   processDoubanData: function (moviesList) {
-    console.log(moviesList);
     const arr = moviesList.subjects.map((item) => {
       return {
         id: item.id,  // 电影id
@@ -89,6 +88,13 @@ Page({
   onReady: function () {
     wx.setNavigationBarTitle({
       title: this.data.navigateTitle
+    })
+  },
+  // 点击获取文章详情触发的事件处理函数
+  onCatchTapMovieDetail: function (event) {
+    const movieId = event.currentTarget.dataset.movieId;
+    wx.navigateTo({
+      url: `../movie-detail/movie-detail?movieId=${movieId}`,
     })
   }
 })

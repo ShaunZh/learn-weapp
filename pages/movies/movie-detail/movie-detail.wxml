@@ -2,8 +2,8 @@
 <import src='../stars/stars-template.wxml' />
 
 <view class='movie-detail-container'>
-  <view class='header'>
-    <image src='{{image}}' class='header-image' mode='aspectFill'></image>
+  <view class='header' catchtap='onCatchTapPreviewImage' data-imgUrl='{{image}}' data-imgs='{{photos}}'>
+    <image src='{{image}}' class='header-image' mode='aspectFill' ></image>
     <view class='inner-header'>
       <text class='main-title'>{{title}}</text>
       <text class='sub-title'>{{countries[0]}}·{{pubdate}}</text>
@@ -16,7 +16,7 @@
           <text class='highlight-font'>{{ratings_count}}</text>
           <text class='plain-font'>条评论</text>
         </view>
-        <image class='movie-image' src='{{image}}'></image>
+        <image class='movie-image' src='{{image}}' catchtap='onCatchTapPreviewImage' data-imgUrl='{{image}}' data-imgs='{{photos}}'></image>
       </view>
     </view>
   </view>

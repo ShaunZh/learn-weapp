@@ -22,7 +22,6 @@ Page({
   },
   // 处理获取到的电影详情
   processMovieDetail: function (movieDetail) {
-    console.log(movieDetail)
     this.setData({
       id: movieDetail.id, // id
       title: movieDetail.title, // 片名
@@ -33,7 +32,8 @@ Page({
       ratings_count: movieDetail.ratings_count, // 评分人数
       reviews_count: movieDetail.reviews_count, // 喜欢人数
       image: movieDetail.images.large, // 海报
-
+      
+      photos: movieDetail.photos, // 图片
       directors: movieDetail.directors, // 导演 array
       casts: movieDetail.casts, // 影人 array
       summary: movieDetail.summary, // 影片简介
@@ -44,7 +44,18 @@ Page({
         starsArray: utils.convertMovieStarsToArray(movieDetail.rating.stars)
       },
     })
+  },
+  // 预览图片
+  onCatchTapPreviewImage(event) {
+    console.log(event)
+    const dataset = event.currentTarget.dataset;
+    const imgs = dataset.imgs.map((item) => {
+      return item.image;
+    })
+    imgs.splice(0, 0, dataset.imgurl);
+    wx.previewImage({
+      urls: imgs
+    })
   }
-
   
 })

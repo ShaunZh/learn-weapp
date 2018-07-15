@@ -14,6 +14,10 @@ Page({
     isDispSearchMovies: false,  // 是否显示搜索电影
     searchResult: {}, // 搜索的电影
     searchInputInit: '', // 搜索输入框的初始化文字
+    searchKeyword: '', // 搜索关键字
+    isMoviesLoadFinished: false, // 是否电影全部加载完毕 
+    totalMovies: 0, // 电影总数
+    isNoFindMovies: false, // 没有找到电影
   },
 
   /**
@@ -40,7 +44,7 @@ Page({
   },
 
   // 处理从豆瓣获取的数据
-  processDoubanData: function (moviesList, movieCategory, categoryName) {
+  processDoubanData: function (moviesList, movieCategory, categoryName, isLoaderMoreMovies = false) {
     const temp = {};
     const arr = moviesList.subjects.map((item) => {
       return {
@@ -55,11 +59,13 @@ Page({
       };
     });
     temp[movieCategory] = {
-      movies: arr,
+      movies: isLoaderMoreMovies?this.data[movieCategory].movies.concat(arr):arr,
       categoryName
-
     };
+    this.data.totalMovies = moviesList.total;
+
     this.setData(temp);
+    wx.hideNavigationBarLoading();
   },
 
   // 获取数据错误处理
@@ -73,7 +79,6 @@ Page({
   // 点击更多事件处理函数
   onMoveMovieTap: function(event) {
     const category = event.currentTarget.dataset.categorytitle;
-    console.log(event)
     wx.navigateTo({
       url: `more-movie/more-movie?category=${category}`,
     })
@@ -81,43 +86,38 @@ Page({
 
   // 点击搜索栏触发的事件处理函数
   onBindInputFocus: function(event) {
-    console.log('focus')
-
     this.setData({
       isDispSearchMovies: true,
       isDispIndexMovies: false,
     })
   },
-  
-  // 点击搜索栏之外的地方触发的事件处理函数
-  onBindInputBlur: function(event) {
-    console.log('blur')
-    // this.setData({
-    //   isDispSearchMovies: false,
-    //   isDispIndexMovies: true,
-    // });
-    // this.data.searchResult = {};
-  },
+
   // 点击关闭搜索触发的事件处理函数
   onTapClossSearch:function(event) {
-    console.log('close')
     this.setData({
       isDispSearchMovies: false,
       isDispIndexMovies: true,
       searchResult: {},
-      searchInputInit: ''
+      searchInputInit: '',
+      isNoFindMovies: false,
     });
   },
   // 点击确认搜索触发的事件处理函数
   onBindConfirm: function (event) {
-    const searchKeyword = event.detail.value;
-    const searchUrl = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/search?q=${searchKeyword}`;
+    this.data.searchKeyword = event.detail.value;
+    const searchUrl = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/search?q=${this.data.searchKeyword}`;
+    wx.showNavigationBarLoading();
     utils.http(searchUrl, (moviesList) => {
       this.processDoubanData(moviesList, 'searchResult', '');
       this.setData({
         isDispSearchMovies: true,
         isDispIndexMovies: false,
-      })
+      });
+      if (this.data.searchResult.movies.length === 0) {
+        this.setData({
+          isNoFindMovies: true,
+        })
+      }
     });
   },
   // 点击获取文章详情触发的事件处理函数
@@ -126,5 +126,19 @@ Page({
     wx.navigateTo({
       url: `movie-detail/movie-detail?movieId=${movieId}`,
     })
-  }
+  },
+  // 上滑加载更多数据
+  onReachBottom: function (event) {
+    if (this.data.isDispSearchMovies) {
+      wx.showNavigationBarLoading();
+      const searchUrl = `${app.globalData.g_doubanApiBaseUrl}/v2/movie/search?q=${this.data.searchKeyword}&start=${this.data.searchResult.movies.length}`;
+      utils.http(searchUrl, (moviesList) => {
+        this.processDoubanData(moviesList, 'searchResult', '', true);
+        this.setData({
+          isMovieLoadsFinished: this.data.totalMovies<=this.data.searchResult.movies
+        })
+      });
+    }
+     
+  },
 })
