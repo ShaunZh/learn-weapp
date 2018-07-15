@@ -1,2 +1,74 @@
 <!--pages/movies/movie-detail/movie-detail.wxml-->
-<text>pages/movies/movie-detail/movie-detail.wxml</text>
+<import src='../stars/stars-template.wxml' />
+
+<view class='movie-detail-container'>
+  <view class='header'>
+    <image src='{{image}}' class='header-image' mode='aspectFill'></image>
+    <view class='inner-header'>
+      <text class='main-title'>{{title}}</text>
+      <text class='sub-title'>{{countries[0]}}·{{pubdate}}</text>
+      <view class='like'>
+        <view>
+          <text class='highlight-font'>{{reviews_count}}</text>
+          <text class='plain-font'>人喜欢</text>
+        </view>
+        <view>
+          <text class='highlight-font'>{{ratings_count}}</text>
+          <text class='plain-font'>条评论</text>
+        </view>
+        <image class='movie-image' src='{{image}}'></image>
+      </view>
+    </view>
+  </view>
+  <view class='movie-summary'>
+    <text class='movie-title'>{{title}}</text>
+    <view class='item grade'>
+      <text class='project-title'>评分</text>
+      <view class='project-info'>
+        <template is='starsTemplate' data='{{starsArray: rating.starsArray, average: rating.average}}' />
+      </view>
+    </view>
+    <view class='item'>
+      <text class='project-title'>导演</text>
+      <view class='project-info'>
+        <block wx:for='{{directors}}' wx:for-item='director'>
+          <text>{{director.name}}</text>
+        </block>
+      </view>
+    </view>
+    <view class='item'>
+      <text class='project-title'>影人</text>
+      <view class='project-info'>
+        <block wx:for='{{casts}}' wx:for-item='cast' wx:for-index='index'>
+          <text>{{cast.name}}</text>
+          <text wx:if='{{(index+1)<casts.length}}'> / </text>
+        </block>
+      </view>
+    </view>
+    <view class='item'>
+      <text class='project-title'>类型</text>
+      <view class='project-info'>
+        <block wx:for='{{genres}}' wx:for-item='genre' wx:for-index='index'>
+          <text>{{genre}}</text>
+          <text wx:if='{{(index+1)<genres.length}}'> 、</text>
+        </block>
+      </view>
+    </view>
+  </view>
+  <view class='content-brief'>
+    <text class='project-title'>剧情简介</text>
+    <text class='content'>{{summary}}</text>
+  </view>
+  <view class='casts-info'>
+    <text class='project-title'>影人</text>
+    <scroll-view class='casts-container' scroll-x>
+     <block wx:for='{{casts}}' wx:for-item='cast'>
+      <view class='cast-item'>
+        <image src='{{cast.avatars.large}}' class='cast-image'></image>
+        <text class='cast-name'>{{cast.name}}</text>
+      </view>
+    </block>
+    </scroll-view>
+   
+  </view>
+</view>

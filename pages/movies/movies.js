@@ -38,6 +38,7 @@ Page({
       this.processDoubanData(moviesList, 'top250Movies', '豆瓣Top250')
     });
   },
+
   // 处理从豆瓣获取的数据
   processDoubanData: function (moviesList, movieCategory, categoryName) {
     const temp = {};
@@ -60,6 +61,7 @@ Page({
     };
     this.setData(temp);
   },
+
   // 获取数据错误处理
   getMoviesListDataErrorDeal: function (error) {
     wx.showToast({
@@ -67,6 +69,7 @@ Page({
       duration: 1000,
     })
   },
+
   // 点击更多事件处理函数
   onMoveMovieTap: function(event) {
     const category = event.currentTarget.dataset.categorytitle;
@@ -75,6 +78,7 @@ Page({
       url: `more-movie/more-movie?category=${category}`,
     })
   },
+
   // 点击搜索栏触发的事件处理函数
   onBindInputFocus: function(event) {
     console.log('focus')
@@ -84,6 +88,7 @@ Page({
       isDispIndexMovies: false,
     })
   },
+  
   // 点击搜索栏之外的地方触发的事件处理函数
   onBindInputBlur: function(event) {
     console.log('blur')

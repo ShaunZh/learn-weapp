@@ -22,20 +22,27 @@ Page({
   },
   // 处理获取到的电影详情
   processMovieDetail: function (movieDetail) {
+    console.log(movieDetail)
     this.setData({
       id: movieDetail.id, // id
       title: movieDetail.title, // 片名
       countries: movieDetail.countries, // 上映地点， array
       durations: movieDetail.durations, // 时长
       genres: movieDetail.genres, // 影片类型
-      pubdate: movieDetail.pubdate, // 上映时间
+      pubdate: movieDetail.pubdates[0].substring(0, 10), // 上映时间
       ratings_count: movieDetail.ratings_count, // 评分人数
       reviews_count: movieDetail.reviews_count, // 喜欢人数
+      image: movieDetail.images.large, // 海报
 
       directors: movieDetail.directors, // 导演 array
       casts: movieDetail.casts, // 影人 array
       summary: movieDetail.summary, // 影片简介
       writers: movieDetail.writers, // 编剧 array
+      rating: { // 评分
+        average: movieDetail.rating.average, // 评分
+        stars: movieDetail.rating.stars, // 星
+        starsArray: utils.convertMovieStarsToArray(movieDetail.rating.stars)
+      },
     })
   }
 
